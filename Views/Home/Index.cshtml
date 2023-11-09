@@ -1,0 +1,46 @@
+﻿@using Syncfusion.EJ2
+@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+    var dataManager = new DataManager() { Url = "/Home/LoadData", CrudUrl = "Home/UpdateData", Adaptor = "UrlAdaptor", CrossDomain = true };
+
+}
+
+<ejs-multiselect id="resources" dataSource="@ViewBag.Owners2" mode="CheckBox" enableSelectionOrder="false" showClearButton="false" showDropDownIcon="true" popupHeight="150px" value="new int[] {1}" change="onCalendarChange">
+    <e-multiselect-fields text="OwnerText" value="Id"></e-multiselect-fields>
+</ejs-multiselect>
+
+<ejs-schedule id="schedule" width="100%" height="550" currentView="Week">
+    <e-schedule-group resources="@ViewBag.Resources"></e-schedule-group>
+    <e-schedule-resources>
+        <e-schedule-resource dataSource="@ViewBag.Owners" field="OwnerId" title="Owner" name="Owners" textField="OwnerText" idField="Id" colorField="OwnerColor" allowMultiple="true"></e-schedule-resource>
+    </e-schedule-resources>
+    <e-schedule-views>
+        <e-schedule-view option="Day"></e-schedule-view>
+        <e-schedule-view option="Week"></e-schedule-view>
+        <e-schedule-view option="WorkWeek"></e-schedule-view>
+        <e-schedule-view option="Month"></e-schedule-view>
+        <e-schedule-view option="TimelineWeek"></e-schedule-view>
+        <e-schedule-view option="TimelineMonth"></e-schedule-view>
+        <e-schedule-view option="Agenda" displayName="Agenda"></e-schedule-view>
+    </e-schedule-views>
+    <e-schedule-eventsettings dataSource="dataManager" query="new ej.data.Query().from('Events').addParams('resources', '1' )"></e-schedule-eventsettings>
+</ejs-schedule>
+
+<script type="text/javascript">
+
+    var resourceData = @Html.Raw(Json.Serialize(ViewBag.Owners2));
+
+    function onCalendarChange(args) {
+        console.log(resourceData)
+        var scheduleObj = document.getElementById('schedule').ej2_instances[0];
+        var selectedResources = args.value.join(',');
+        scheduleObj.eventSettings.query.params[0].value = selectedResources;
+
+        var idsToFilter = args.value;
+        var filteredOwners = resourceData.filter(owner => idsToFilter.includes(owner.Id));
+        scheduleObj.resources[0].dataSource = filteredOwners;
+        scheduleObj.dataBind();
+    }
+</script>
