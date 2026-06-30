@@ -1,6 +1,6 @@
-# ej2-aspcore-scheduler-send-additional-details
+# EJ2 ASP.NET Core Scheduler Send Additional Parameters to Server Example
 
-A quick start Asp core project that helps you to learn how to send resource Id as additional params to the server side in the scheduler. This project demonstrates how to extend scheduler functionality by passing additional parameters from the client-side to the server for customized data handling.
+A quick start [ASP.NET Core Scheduler](https://www.syncfusion.com/aspnet-core-ui-controls/scheduler) project that demonstrates how to send resource IDs as additional parameters to the server using the built-in DataManager. This example shows how to dynamically update query parameters, filter resources, and handle CRUD operations with full server-side integration in an ASP.NET Core application.
 
 ## Features
 
@@ -18,7 +18,7 @@ Make sure that you have the latest versions of 'Visual Studio 2022' in your mach
 
 * To run this application, you need to first clone the <code>ej2-aspcore-scheduler-send-additional-details</code> repository and then open it in Visual Studio 2022.
 * Using the Migrations apply the changes to the database by running the following command in the Package Manager console:
-> PM> update-database
+    > PM> update-database
 * Migrations automate the creation of database based on our Model. The EF Core packages required for migration will be added with .NET Core project setup.
 * Now, simply build and run your project to view the output.
 
